@@ -78,4 +78,17 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Is Grounded");
         }
     }
+
+    // Public API to update the player's spawn position (called by doors)
+    public void SetSpawnPosition(Vector3 newPosition)
+    {
+        if (spawnPoint != null)
+        {
+            spawnPoint.transform.position = newPosition;
+        }
+        else
+        {
+            Debug.LogWarning("SpawnPoint is not assigned on PlayerMovement.");
+        }
+    }
 }

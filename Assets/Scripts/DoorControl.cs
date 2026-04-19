@@ -76,6 +76,13 @@ public class DoorControl : MonoBehaviour
             {
                 OnDoorOpenedInternal();
                 popUpUI.SetActive(false);
+
+                // Move the player's spawn to this door's position so the player will respawn here next time
+                PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
+                if (playerMovement != null)
+                {
+                    playerMovement.SetSpawnPosition(transform.position);
+                }
             }
         }
     }

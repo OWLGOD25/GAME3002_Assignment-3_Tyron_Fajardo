@@ -80,11 +80,14 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Public API to update the player's spawn position (called by doors)
+    // Keeps the original spawnPoint.z to ensure respawn stays on the 2D plane.
     public void SetSpawnPosition(Vector3 newPosition)
     {
         if (spawnPoint != null)
         {
-            spawnPoint.transform.position = newPosition;
+            Vector3 current = spawnPoint.transform.position;
+            // Preserve the Z (depth) so the game stays 2D in X/Y while using 3D transforms.
+            spawnPoint.transform.position = new Vector3(newPosition.x, newPosition.y, current.z);
         }
         else
         {

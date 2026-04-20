@@ -23,6 +23,11 @@ public class DoorControl : MonoBehaviour
     [SerializeField]
     private GameObject popUpUI;
 
+    // Local-space offset for where the player should respawn relative to the door.
+    // Edit this in the Inspector (default moves the spawn 1 unit backward on the door's local Z).
+    [SerializeField]
+    private Vector3 spawnOffset = new Vector3(0f, -2f, 0f);
+
     private HingeJoint m_hingeJoint = null;
 
     private JointSpring m_jointSpring;
@@ -77,11 +82,13 @@ public class DoorControl : MonoBehaviour
                 OnDoorOpenedInternal();
                 popUpUI.SetActive(false);
 
-                // Move the player's spawn to this door's position so the player will respawn here next time
+                // Move the player's spawn to this door's position (plus local offset) so the player will respawn here next time
                 PlayerMovement playerMovement = collision.gameObject.GetComponent<PlayerMovement>();
                 if (playerMovement != null)
                 {
-                    playerMovement.SetSpawnPosition(transform.position);
+                    // Use TransformPoint so spawnOffset is interpreted in the door's local space
+                    Vector3 spawnWorldPos = transform.TransformPoint(spawnOffset);
+                    playerMovement.SetSpawnPosition(spawnWorldPos);
                 }
             }
         }

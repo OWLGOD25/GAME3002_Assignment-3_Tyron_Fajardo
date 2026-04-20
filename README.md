@@ -2,7 +2,7 @@ GAME3002_A3 - Final Assignment for the course.
 
 Creating a simple 3D race to the finish platformer game.
 
-- - - - - - - - - - - CONTROLS - - - - - - - - - -
+ - - - - CONTROLS - - - - -
 
 - Left and Right Arrow Keys
 
